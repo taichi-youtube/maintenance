@@ -1,15 +1,41 @@
+```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta name="robots" content="noindex, nofollow">
-    <meta name="theme-color" content="#f0f4f8">
+
+    <meta name="theme-color" content="#f0f4f8" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
 
     <title>メンテナンス中</title>
 
     <style>
+        :root {
+            color-scheme: light dark;
+
+            --bg-color: #f0f4f8;
+            --text-color: #333333;
+            --table-bg: #ffffff;
+            --table-header-bg: #f5f5f5;
+            --border-color: #dddddd;
+            --footer-color: #777777;
+            --link-color: #0066cc;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #121212;
+                --text-color: #eeeeee;
+                --table-bg: #1e1e1e;
+                --table-header-bg: #292929;
+                --border-color: #444444;
+                --footer-color: #aaaaaa;
+                --link-color: #66aaff;
+            }
+        }
+
         * {
             box-sizing: border-box;
         }
@@ -20,8 +46,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: #f0f4f8;
-            color: #333;
+            background: var(--bg-color);
+            color: var(--text-color);
             font-family: sans-serif;
             text-align: center;
         }
@@ -44,7 +70,7 @@
             margin-top: 40px;
             margin-bottom: 12px;
         }
-        
+
         .main p {
             margin: 8px 0;
         }
@@ -52,9 +78,8 @@
         .main table {
             margin: 30px auto 0;
             border-collapse: collapse;
-            background: #fff;
+            background: var(--table-bg);
             width: 100%;
-            max-width: 500px;
             text-align: left;
             line-height: 1.6;
         }
@@ -62,11 +87,11 @@
         .main th,
         .main td {
             padding: 12px 16px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-color);
         }
 
         .main th {
-            background: #f5f5f5;
+            background: var(--table-header-bg);
             white-space: nowrap;
             width: 110px;
         }
@@ -75,33 +100,57 @@
             overflow-wrap: anywhere;
         }
 
-        /* 詳細情報 */
+        .main td a {
+            color: var(--link-color);
+            text-decoration: underline;
+        }
+
+        .main td a:hover {
+            color: #ff0033;
+        }
+
         .details {
             margin-top: 30px;
             text-align: left;
         }
 
-        .details h2,
-        .details h3 {
+        .details h2 {
             text-align: center;
         }
 
-        .details p {
-            text-align: left;
+        .button-area {
+            margin-top: 20px;
+            text-align: center;
         }
+
         .button {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 10px 24px;
             background: #ff0033;
-            color: white;
+            color: #ffffff;
             text-decoration: none;
             border-radius: 6px;
-            align-items: center;
+            transition: background 0.2s, transform 0.2s;
         }
+
+        .button:hover {
+            background: #d9002b;
+            transform: translateY(-2px);
+        }
+
+        .button:active {
+            transform: translateY(0);
+        }
+
+        .button:focus-visible {
+            outline: 3px solid var(--text-color);
+            outline-offset: 3px;
+        }
+
         footer {
             width: 100%;
             padding: 20px;
-            color: #777;
+            color: var(--footer-color);
             font-size: 14px;
             text-align: center;
         }
@@ -132,46 +181,66 @@
 </head>
 
 <body>
-    <div class="main">
-        <h1>システムメンテナンス中です</h1>
 
-        <p>ただいま緊急メンテナンスを行っております。</p>
-        <p>ご不便とご迷惑をおかけし、申し訳ございません。</p>
+    <main class="main">
 
-        <table>
-            <tr>
-                <th>状態</th>
-                <td>サービスを停止中</td>
-            </tr>
-            <tr>
-                <th>事由</th>
-                <td>サーバーへのサイバー攻撃</td>
-            </tr>
-            <tr>
-                <th>影響先</th>
-                <td href="https://www.taichi-youtube.jp">www.taichi-youtube.jp</td>
-            </tr>
-            <tr>
-                <th>再開日時</th>
-                <td>未定</td>
-            </tr>
-        </table>
+        <section class="announcement">
+            <h1>システムメンテナンス中です</h1>
 
-        <div class="details">
+            <p>ただいま緊急メンテナンスを行っております。</p>
+            <p>ご不便とご迷惑をおかけし、申し訳ございません。</p>
+        </section>
+
+        <section class="status">
+            <table>
+                <tbody>
+                    <tr>
+                        <th scope="row">状態</th>
+                        <td>サービスを停止中</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">事由</th>
+                        <td>サーバーへのサイバー攻撃</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">影響先</th>
+                        <td>
+                            <a href="https://www.taichi-youtube.jp">
+                                www.taichi-youtube.jp
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">再開日時</th>
+                        <td>未定</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="details">
             <p>
-                現在当サービスのサーバーへのサイバー攻撃により、
-                サーバーの保護のために、サービスを停止しています。
+                現在、当サービスのサーバーへのサイバー攻撃により、
+                サーバーの保護のためにサービスを停止しています。
             </p>
 
-            <h2>現在のサービス情報は以下のサイトからご覧いただけます。</h2>
-            <a href="https://status.taichi-youtube.jp" class="button">
-                サービスステータス
-            </a>
-        </div>
-    </div>
+            <h2>
+                現在のサービス情報は以下のサイトからご覧いただけます。
+            </h2>
+
+            <div class="button-area">
+                <a href="https://status.taichi-youtube.jp" class="button">
+                    サービスステータス
+                </a>
+            </div>
+        </section>
+
+    </main>
 
     <footer>
-        &copy;2026 Taichi. All Rights Reserved.
+        &copy; 2026 Taichi. All Rights Reserved.
     </footer>
+
 </body>
 </html>
+```
