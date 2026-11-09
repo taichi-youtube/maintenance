@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#f0f4f8">
+
+    <title>メンテナンス中 | Taichi</title>
+
+    <style>
+        :root {
+            --bg-color: #f0f4f8;
+            --text-color: #333333;
+            --header-bg: #ff0033;
+            --header-text: #ffffff;
+            --footer-bg: rgba(0, 0, 0, 0.02);
+            --footer-border: rgba(0, 0, 0, 0.05);
+            --footer-text: #777777;
+
+            --card-bg: #ffffff;
+            --secondary-text: #777777;
+            --border-color: #e5e9ef;
+            --status-bg: #fff0f0;
+            --status-color: #e53935;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #15171b;
+                --text-color: #f1f1f1;
+                --header-bg: #ff0033;
+                --header-text: #ffffff;
+                --footer-bg: rgba(255, 255, 255, 0.03);
+                --footer-border: rgba(255, 255, 255, 0.07);
+                --footer-text: #999999;
+
+                --card-bg: #22252b;
+                --secondary-text: #a0a0a0;
+                --border-color: #383c44;
+                --status-bg: rgba(229, 57, 53, 0.12);
+                --status-color: #ff6868;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                "Noto Sans JP",
+                sans-serif;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        header {
+            height: 64px;
+            display: flex;
+            align-items: center;
+            padding: 0 7%;
+            background: var(--header-bg);
+            color: var(--header-text);
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 620px;
+            text-align: center;
+            animation: appear 0.8s ease;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .icon-area {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 28px;
+            background: var(--card-bg);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .icon-area svg {
+            width: 55px;
+            height: 55px;
+            color: var(--header-bg);
+            animation: rotate 8s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 9px 16px;
+            margin-bottom: 22px;
+            border-radius: 30px;
+            background: var(--status-bg);
+            color: var(--status-color);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.25;
+            }
+        }
+
+        h1 {
+            font-size: clamp(27px, 5vw, 38px);
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+        }
+
+        .description {
+            font-size: 15px;
+            line-height: 2;
+            color: var(--secondary-text);
+            margin-bottom: 35px;
+        }
+
+        .info-card {
+            padding: 24px;
+            border-radius: 15px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        .info-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--secondary-text);
+            margin-bottom: 15px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 13px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: var(--secondary-text);
+        }
+
+        .info-value {
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .notice {
+            margin-top: 24px;
+            font-size: 12px;
+            color: var(--secondary-text);
+            line-height: 1.8;
+        }
+
+        footer {
+            padding: 23px 20px;
+            text-align: center;
+            background: var(--footer-bg);
+            border-top: 1px solid var(--footer-border);
+            color: var(--footer-text);
+            font-size: 12px;
+        }
+
+        @media (max-width: 480px) {
+            header {
+                height: 58px;
+                padding: 0 20px;
+            }
+
+            main {
+                padding: 45px 20px;
+            }
+
+            .icon-area {
+                width: 85px;
+                height: 85px;
+            }
+
+            .icon-area svg {
+                width: 46px;
+                height: 46px;
+            }
+
+            .info-card {
+                padding: 19px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">Taichi</div>
+    </header>
+
+    <main>
+        <div class="container">
+
+            <!-- メンテナンスアイコン -->
+            <div class="icon-area">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <path d="M14.7 6.3a4.5 4.5 0 0 0-6.4 6.4l-5.6 5.6a2 2 0 0 0 2.8 2.8l5.6-5.6a4.5 4.5 0 0 0 6.4-6.4L14 12l-2-2z"/>
+                    <path d="m16 5 3-3"/>
+                </svg>
+            </div>
+
+            <!-- ステータス -->
+            <div class="status">
+                <span class="status-dot"></span>
+                MAINTENANCE IN PROGRESS
+            </div>
+
+            <h1>メンテナンス中</h1>
+
+            <p class="description">
+                ただいま、システムのメンテナンスを実施しています。<br>
+                ご利用の皆様にはご不便をおかけしますが、<br>
+                しばらくお待ちください。
+            </p>
+
+            <!-- メンテナンス情報 -->
+            <div class="info-card">
+
+                <div class="info-title">
+                    MAINTENANCE INFORMATION
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">ステータス</span>
+                    <span class="info-value" style="color: var(--status-color);">
+                        メンテナンス中
+                    </span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">メンテナンス内容</span>
+                    <span class="info-value">
+                        システム更新・保守作業
+                    </span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">開始日時</span>
+                    <span class="info-value">
+                        別途お知らせ
+                    </span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">復旧予定</span>
+                    <span class="info-value">
+                        未定
+                    </span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">現在時刻</span>
+                    <span class="info-value" id="current-time">
+                        --:--:--
+                    </span>
+                </div>
+
+            </div>
+
+            <p class="notice">
+                メンテナンスが終了するまで、サービスをご利用いただけません。<br>
+                作業が完了次第、通常どおりアクセスできるようになります。
+            </p>
+
+        </div>
+    </main>
+
+    <footer>
+        &copy; <span id="year"></span> Taichi. All Rights Reserved.
+    </footer>
+
+    <script>
+        // 現在時刻の更新
+        function updateTime() {
+            const now = new Date();
+
+            document.getElementById("current-time").textContent =
+                now.toLocaleTimeString("ja-JP", {
+                    hour12: false,
+                    timeZone: "Asia/Tokyo"
+                });
+        }
+
+        // 年の自動更新
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+
+</body>
+</html>
